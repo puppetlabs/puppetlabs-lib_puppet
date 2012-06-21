@@ -35,20 +35,29 @@
 #
 # Copyright 2011 Your name here, unless otherwise noted.
 #
-define cp_helper ( 
-  $puppet_install_directory  = "${puppet_install_dir}/puppet",
-  $ensure = 'present',
+define lib_puppet (
+  $lib_puppet = "${::puppet_install_dir}/puppet",
+  $ensure = present,
+  $recurse = false
 ) {
- case $ensure {
+  case $ensure {
     'present','installed':  { $ensure_safe = file   }
     'absent','uninstalled': { $ensure_safe = absent }
     default: {
-      fail "Unknown value ${ensure} of 'ensure' parameter for Class[cloud-provisioner].  Accepted values are ['present','absent']"
+      fail "Unknown value ${ensure} of 'ensure' parameter, Accepted values are ['present','absent']"
     }
   }
-  file { "${puppet_install_directory}/application/${name}.rb":
-    ensure => $ensure_safe,
-    source => "puppet:///modules/${name}/${name}.rb",
-    mode   => 0644,
+  if $caller_module_name {
+    $mod = $caller_module_name
+  } else {
+    $mod = $module_name
+  }
+
+  file { "${lib_puppet}/${name}":
+    ensure  => $ensure_safe,
+    source  => "puppet:///modules/${mod}/${name}",
+    mode    => 0644,
+    recurse => $recurse,
+    links   => follow,
   }
 }

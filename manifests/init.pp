@@ -55,7 +55,7 @@ define lib_puppet (
 
   file { "${lib_puppet}/${name}":
     ensure  => $ensure_safe,
-    source  => "puppet:///modules/${mod}/${name}",
+    source  => "puppet:///modules/${mod}/lib/puppet/${name}",
     mode    => 0644,
     recurse => $recurse,
     links   => follow,

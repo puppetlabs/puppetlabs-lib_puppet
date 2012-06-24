@@ -1,44 +1,26 @@
-# == Class: cp_helper
+# == Define: lib_puppet
 #
-# Full description of class cp_helper here.
+# lib_puppet is to assist file management under the ruby lib puppet directory.
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if it
-#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should not be used in preference to class parameters  as of
-#   Puppet 2.6.)
+# [*ensure*]
+#   state of file, present/absent
+# [*lib_puppet*]
+#   The target directory to copy files to.
+# [*recurse*]
+#   Whether to recurse into a directory.
 #
 # === Examples
 #
-#  class { cp_helper:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
+#  lib_puppet { 'puppet_face.rb':
+#    ensure => present,
 #  }
 #
-# === Authors
-#
-# Author Name <author@domain.com>
-#
-# === Copyright
-#
-# Copyright 2011 Your name here, unless otherwise noted.
-#
 define lib_puppet (
+  $ensure     = present,
   $lib_puppet = "${::puppet_install_dir}/puppet",
-  $ensure = present,
-  $recurse = false
+  $recurse    = false
 ) {
   case $ensure {
     'present','installed':  { $ensure_safe = file   }
@@ -47,6 +29,7 @@ define lib_puppet (
       fail "Unknown value ${ensure} of 'ensure' parameter, Accepted values are ['present','absent']"
     }
   }
+
   if $caller_module_name {
     $mod = $caller_module_name
   } else {

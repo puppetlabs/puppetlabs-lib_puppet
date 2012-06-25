@@ -1,6 +1,6 @@
-# lib_puppet
+# lib_puppet module
 
-This is the lib_puppet module. This is to provide a way to identify lib/puppet path and copy files to that directory.
+This module is provides a way to identify lib/puppet path via facter and manage files in that directory.
 
 ## Usage
 

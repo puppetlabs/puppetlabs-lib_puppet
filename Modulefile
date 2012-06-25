@@ -1,11 +1,10 @@
-name    'puppetlabs-cp_helper'
+name    'puppetlabs-lib_puppet'
 version '0.0.1'
-source 'UNKNOWN'
-author 'puppetlabs'
-license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+source  'https://github.com/puppetlabs/puppetlabs-lib_puppet'
+author  'Puppet Labs'
+license 'Apache License 2.0'
+summary 'Puppet Labs lib_puppet module'
+description 'Define resource type for managing files in lib/puppet.'
+project_page 'https://github.com/puppetlabs/puppetlabs-lib_puppet'
 
 ## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
